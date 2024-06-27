@@ -41,7 +41,14 @@ namespace RandomNamesWithUI
                     foreach (var file in d.GetFiles())
                     {
                         string finalName = Path.GetRandomFileName();
-                        GenerateRenaming(file, finalName);
+                        try
+                        {
+                            GenerateRenaming(file, finalName);
+                        }
+                        catch (Exception ex)
+                        {
+                            testLabel.Content = $"Failed to rename files in folder {d}: {ex.Message}";
+                        }
                     }
                 }
             }
@@ -62,7 +69,14 @@ namespace RandomNamesWithUI
                         FileInfo file = new FileInfo(filePath);
                         {
                             string finalName = Path.GetRandomFileName();
-                            GenerateRenaming(file, finalName);
+                            try
+                            {
+                                GenerateRenaming(file, finalName);
+                            }
+                            catch (Exception ex)
+                            {
+                                testLabel.Content = $"Failed to rename file(s) in folder {filePath}: {ex.Message}";
+                            }
                         }
                     }
                 }
@@ -70,16 +84,6 @@ namespace RandomNamesWithUI
             else
             {
                 testLabel.Content = "Оберіть ціль перейменування у списку!";
-            }
-        }
-
-        private static void GenerateRenaming(FileInfo file, string finalName)
-        {
-            finalName = Path.ChangeExtension(finalName, null);
-            string newPath = Path.Combine(file.DirectoryName, finalName + file.Extension);
-            if (!File.Exists(newPath))
-            {
-                File.Move(file.FullName, newPath);
             }
         }
 
@@ -105,7 +109,14 @@ namespace RandomNamesWithUI
                     foreach (var file in d.GetFiles())
                     {
                         string finalName = selectName.newName + "_" + i;
-                        GenerateRenaming(file, finalName);
+                        try
+                        {
+                            GenerateRenaming(file, finalName);
+                        }
+                        catch (Exception ex)
+                        {
+                            testLabel.Content = $"Failed to rename files in folder {d}: {ex.Message}";
+                        }
                         i++;
                     }
                 }
@@ -128,7 +139,14 @@ namespace RandomNamesWithUI
                         FileInfo file = new FileInfo(filePath);
                         {
                             string finalName = selectName.newName + "_" + i;
-                            GenerateRenaming(file, finalName);
+                            try
+                            {
+                                GenerateRenaming(file, finalName);
+                            }
+                            catch (Exception ex)
+                            {
+                                testLabel.Content = $"Failed to rename file(s) in folder {filePath}: {ex.Message}";
+                            }
                         }
                         i++;
                     }
@@ -137,6 +155,16 @@ namespace RandomNamesWithUI
             else
             {
                 testLabel.Content = "Оберіть ціль перейменування у списку!";
+            }
+        }
+
+        private static void GenerateRenaming(FileInfo file, string finalName)
+        {
+            finalName = Path.ChangeExtension(finalName, null);
+            string newPath = Path.Combine(file.DirectoryName, finalName + file.Extension);
+            if (!File.Exists(newPath))
+            {
+                File.Move(file.FullName, newPath);
             }
         }
     }
