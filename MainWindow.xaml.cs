@@ -27,17 +27,11 @@ namespace RandomNamesWithUI
         {
             if (RenamingTarget.Text is "Select folder(s)")
             {
-                OpenFolderDialog dialog = new()
-                {
-                    Multiselect = true,
-                    Title = "Select folder(s) to rename"
-                };
-
-                bool? result = dialog.ShowDialog();
+                OpenDialogForFolders(out OpenFolderDialog dialog, out bool? result);
 
                 if (result == true)
                 {
-                    DirectoryInfo d = new DirectoryInfo(dialog.FolderName);
+                    DirectoryInfo d = new(dialog.FolderName);
                     foreach (var file in d.GetFiles())
                     {
                         string finalName = Path.GetRandomFileName();
@@ -47,26 +41,20 @@ namespace RandomNamesWithUI
                         }
                         catch (Exception ex)
                         {
-                            testLabel.Content = $"Failed to rename files in folder {d}: {ex.Message}";
+                            testLabel.Content = $"Failed to rename files in folder: {ex.Message}";
                         }
                     }
                 }
             }
             if (RenamingTarget.Text is "Select file(s)")
             {
-                OpenFileDialog dialog = new()
-                {
-                    Multiselect = true,
-                    Title = "Select file(s) to rename"
-                };
-
-                bool? result = dialog.ShowDialog();
+                OpenDialogForFiles(out OpenFileDialog dialog, out bool? result);
 
                 if (result == true)
                 {
                     foreach (var filePath in dialog.FileNames)
                     {
-                        FileInfo file = new FileInfo(filePath);
+                        FileInfo file = new(filePath);
                         {
                             string finalName = Path.GetRandomFileName();
                             try
@@ -75,7 +63,7 @@ namespace RandomNamesWithUI
                             }
                             catch (Exception ex)
                             {
-                                testLabel.Content = $"Failed to rename file(s) in folder {filePath}: {ex.Message}";
+                                testLabel.Content = $"Failed to rename file(s) in folder: {ex.Message}";
                             }
                         }
                     }
@@ -87,66 +75,58 @@ namespace RandomNamesWithUI
             }
         }
 
+        private static void OpenDialogForFiles(out OpenFileDialog dialog, out bool? result)
+        {
+            dialog = new()
+            {
+                Multiselect = true,
+                Title = "Select file(s) to rename"
+            };
+            result = dialog.ShowDialog();
+        }
+
+        private static void OpenDialogForFolders(out OpenFolderDialog dialog, out bool? result)
+        {
+            dialog = new()
+            {
+                Multiselect = true,
+                Title = "Select folder(s) to rename"
+            };
+            result = dialog.ShowDialog();
+        }
+
         private void ManuallyButton_Click(object sender, RoutedEventArgs e)
         {
-            SelectName selectName = new SelectName();
+            SelectName selectName = new();
             selectName.ShowDialog();
 
             if (RenamingTarget.Text is "Select folder(s)")
             {
-                OpenFolderDialog dialog = new()
-                {
-                    Multiselect = true,
-                    Title = "Select folder(s) to rename"
-                };
-
-                bool? result = dialog.ShowDialog();
+                OpenDialogForFolders(out OpenFolderDialog dialog, out bool? result);
 
                 if (result == true)
                 {
-                    DirectoryInfo d = new DirectoryInfo(dialog.FolderName);
+                    DirectoryInfo d = new(dialog.FolderName);
                     int i = 0;
                     foreach (var file in d.GetFiles())
                     {
-                        string finalName = selectName.newName + "_" + i;
-                        try
-                        {
-                            GenerateRenaming(file, finalName);
-                        }
-                        catch (Exception ex)
-                        {
-                            testLabel.Content = $"Failed to rename files in folder {d}: {ex.Message}";
-                        }
+                        ManuallyRename(selectName, i, file);
                         i++;
                     }
                 }
             }
             if (RenamingTarget.Text is "Select file(s)")
             {
-                OpenFileDialog dialog = new()
-                {
-                    Multiselect = true,
-                    Title = "Select file(s) to rename"
-                };
-
-                bool? result = dialog.ShowDialog();
+                OpenDialogForFiles(out OpenFileDialog dialog, out bool? result);
 
                 if (result == true)
                 {
                     int i = 0;
                     foreach (var filePath in dialog.FileNames)
                     {
-                        FileInfo file = new FileInfo(filePath);
+                        FileInfo file = new(filePath);
                         {
-                            string finalName = selectName.newName + "_" + i;
-                            try
-                            {
-                                GenerateRenaming(file, finalName);
-                            }
-                            catch (Exception ex)
-                            {
-                                testLabel.Content = $"Failed to rename file(s) in folder {filePath}: {ex.Message}";
-                            }
+                            ManuallyRename(selectName, i, file);
                         }
                         i++;
                     }
@@ -154,7 +134,20 @@ namespace RandomNamesWithUI
             }
             else
             {
-                testLabel.Content = "Оберіть ціль перейменування у списку!";
+                testLabel.Content = "Select what you want to rename from list!";
+            }
+        }
+
+        private void ManuallyRename(SelectName selectName, int i, FileInfo file)
+        {
+            string finalName = selectName.newName + "_" + i;
+            try
+            {
+                GenerateRenaming(file, finalName);
+            }
+            catch (Exception ex)
+            {
+                testLabel.Content = $"Failed to rename file(s) in folder: {ex.Message}";
             }
         }
 
