@@ -20,12 +20,12 @@ namespace RandomNamesWithUI
     /// </summary>
     public partial class SelectName : Window
     {
+        public string newName = "file";
+
         public SelectName()
         {
             InitializeComponent();
         }
-
-        public string newName;
 
         private void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
