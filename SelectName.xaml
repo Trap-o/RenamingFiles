@@ -1,0 +1,15 @@
+﻿<Window x:Class="RandomNamesWithUI.SelectName"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RandomNamesWithUI"
+        mc:Ignorable="d"
+        Title="SelectName" Height="250" Width="250">
+    <Grid>
+        <TextBox x:Name="RenamingPart" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150" Margin="0,49,0,0" TextChanged="RenamingPart_TextChanged"/>
+        <Label Content="Enter new name for files:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0"/>
+        <Label x:Name="TestNameList" Content="New file's names:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,72,0,0"/>
+        <Button x:Name="ContinueButton" Content="Continue?" HorizontalAlignment="Center" Margin="0,148,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.087,0.493" Width="75" Height="26" Click="ContinueButton_Click"/>
+    </Grid>
+</Window>

@@ -1,0 +1,23 @@
+﻿<Window x:Class="RandomNamesWithUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RandomNamesWithUI"
+        mc:Ignorable="d"
+        Title="Generate random names" Height="450" Width="800" WindowStyle="ThreeDBorderWindow">
+    <Grid>
+        <Button Content="Generate name" Margin="326,230,326,157" Click="GenerateButton_Click"/>
+        <Label Name="testLabel" Content="Label" HorizontalAlignment="Left" Margin="254,71,0,0" VerticalAlignment="Top" Width="492"/>
+        <Button Content="Change name manually" Margin="326,282,326,105" Click="ManuallyButton_Click"/>
+
+        <ComboBox x:Name="RenamingTarget" HorizontalAlignment="Center" Margin="0,334,0,0" VerticalAlignment="Top" Width="148" Height="30">
+            <ComboBoxItem>Select folder(s)</ComboBoxItem>
+            <ComboBoxItem>Select file(s)</ComboBoxItem>
+        </ComboBox>
+        <!--<ComboBox x:Name="ManuallyRenamingMaterial" HorizontalAlignment="Left" Margin="445,330,0,0" VerticalAlignment="Top" Width="120" Height="47">
+            <ComboBoxItem>Select folder(s)</ComboBoxItem>
+            <ComboBoxItem>Select file(s)</ComboBoxItem>
+        </ComboBox>-->
+    </Grid>
+</Window>
