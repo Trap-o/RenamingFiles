@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RandomNamesWithUI"
         mc:Ignorable="d"
-        Title="Generate random names" Height="450" Width="800" WindowStyle="ThreeDBorderWindow">
+        Title="Generate random names" Height="450" Width="800" WindowStyle="ThreeDBorderWindow" Icon="/_35e74fe2-4909-402b-964d-78f341577316.jfif">
     <Grid>
-        <Button Content="Generate name" Margin="326,230,326,157" Click="GenerateButton_Click"/>
-        <Label Name="testLabel" Content="Label" HorizontalAlignment="Left" Margin="254,71,0,0" VerticalAlignment="Top" Width="492"/>
-        <Button Content="Change name manually" Margin="326,282,326,105" Click="ManuallyButton_Click"/>
 
-        <ComboBox x:Name="RenamingTarget" HorizontalAlignment="Center" Margin="0,334,0,0" VerticalAlignment="Top" Width="148" Height="30">
+        <Button Content="Generate name" Margin="315,236,315,158" Click="GenerateButton_Click" Width="170" Height="40"/>
+        <Label Name="testLabel" Content="Choose action" HorizontalAlignment="Center" Margin="0,191,0,0" VerticalAlignment="Top" Width="268" Height="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button Content="Change name manually" Margin="315,281,315,113" Click="ManuallyButton_Click" Width="170" Height="40"/>
+
+        <ComboBox x:Name="RenamingTarget" HorizontalAlignment="Center" Margin="0,326,0,0" VerticalAlignment="Top" Width="150" Height="30">
             <ComboBoxItem>Select folder(s)</ComboBoxItem>
             <ComboBoxItem>Select file(s)</ComboBoxItem>
         </ComboBox>

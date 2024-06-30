@@ -96,7 +96,7 @@ namespace RandomNamesWithUI
                     int i = 0;
                     foreach (var file in d.GetFiles())
                     {
-                        string finalName = selectName.newName + "_" + i;
+                        string finalName = selectName.NewName + "_" + i;
                         ManuallyRename(file, finalName);
                         i++;
                     }
@@ -113,7 +113,7 @@ namespace RandomNamesWithUI
                     {
                         FileInfo file = new(filePath);
                         {
-                            string finalName = selectName.newName + "_" + i;
+                            string finalName = selectName.NewName + "_" + i;
                             ManuallyRename(file, finalName);
                         }
                         i++;
