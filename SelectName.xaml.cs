@@ -21,7 +21,6 @@ namespace RandomNamesWithUI
                 NewName = RenamingPart.Text;
             else
                 NewName = "File";
-
             Close();
         }
 
