@@ -1,14 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.IO;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using Path = System.IO.Path;
 
 namespace RandomNamesWithUI
@@ -53,9 +45,7 @@ namespace RandomNamesWithUI
                 }
             }
             else
-            {
                 testLabel.Content = "Оберіть ціль перейменування у списку!";
-            }
         }
 
         private static void OpenDialog(out OpenFileDialog dialog, out bool? result)
@@ -84,7 +74,7 @@ namespace RandomNamesWithUI
             Hide();
             selectName.ShowDialog();
             Show();
-            
+
             if (RenamingTarget.Text is "Select folder(s)")
             {
                 OpenDialog(out OpenFolderDialog dialog, out bool? result);
@@ -120,9 +110,7 @@ namespace RandomNamesWithUI
                 }
             }
             else
-            {
                 testLabel.Content = "Select what you want to rename from list!";
-            }
         }
 
         private void ManuallyRename(FileInfo file, string finalName)

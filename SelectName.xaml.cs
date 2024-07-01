@@ -8,10 +8,7 @@ namespace RandomNamesWithUI
     /// </summary>
     public partial class SelectName : Window
     {
-        public SelectName()
-        {
-            InitializeComponent();
-        }
+        public SelectName() => InitializeComponent();
 
         public string? NewName { get; set; }
 
