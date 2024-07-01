@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RandomNamesWithUI"
         mc:Ignorable="d"
-        Title="SelectName" Height="250" Width="250"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+        Title="SelectName" Height="250" Width="250"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
     <Grid>
         <TextBox x:Name="RenamingPart" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="0,50,0,0" TextChanged="RenamingPart_TextChanged" Width="150"/>
         <Label Content="Enter new name for files:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0"/>

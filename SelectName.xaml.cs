@@ -11,9 +11,11 @@ namespace RandomNamesWithUI
         public SelectName()
         {
             InitializeComponent();
+            MainWindow mainWindow = new();
+            mainWindow.Hide();
         }
 
-        public string NewName { get; set; }
+        public string? NewName { get; set; }
 
         private void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
@@ -32,9 +34,15 @@ namespace RandomNamesWithUI
             Thread.Sleep(2000);
             for (int i = 0; i < 3; i++)
             {
-                testName = '\n' + RenamingPart.Text + i;
+                testName += '\n' + RenamingPart.Text + i;
             }
-            TestNameList.Content += testName;
+            TestNameList.Content = "New file's names:" + testName + "\n...";
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            MainWindow mainWindow = new();
+            mainWindow.Show();
         }
     }
 }

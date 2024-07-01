@@ -18,10 +18,7 @@ namespace RandomNamesWithUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
 
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
@@ -131,7 +128,7 @@ namespace RandomNamesWithUI
             try
             {
                 finalName = Path.ChangeExtension(finalName, null);
-                string newPath = Path.Combine(file.DirectoryName, finalName + file.Extension);
+                string newPath = Path.Combine(file.DirectoryName!, finalName + file.Extension);
                 if (!File.Exists(newPath))
                 {
                     File.Move(file.FullName, newPath);
