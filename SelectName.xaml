@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RandomNamesWithUI"
         mc:Ignorable="d"
-        Title="SelectName" Height="250" Width="250"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+        Title="SelectName" Height="230" Width="250"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontSize="16">
     <Grid>
-        <TextBox x:Name="RenamingPart" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="0,50,0,0" TextChanged="RenamingPart_TextChanged" Width="150"/>
-        <Label Content="Enter new name for files:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0"/>
-        <Label x:Name="TestNameList" Content="New file's names:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,72,0,0"/>
-        <Button x:Name="ContinueButton" Content="Continue?" HorizontalAlignment="Center" Margin="0,148,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.087,0.493" Width="75" Height="26" Click="ContinueButton_Click"/>
+        <TextBox x:Name="RenamingPart" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="0,50,0,0" TextChanged="RenamingPart_TextChanged" Width="170"/>
+        <Label Content="Enter new name for files:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0" HorizontalContentAlignment="Center"/>
+        <TextBlock x:Name="TestNameList" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,85,0,0" TextAlignment="Center">
+        New files' names:<LineBreak/> File_1, File_2, File_3, ...
+        </TextBlock>
+        <Button x:Name="ContinueButton" Content="Continue?" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Bottom" Width="90" Height="30" Click="ContinueButton_Click"/>
     </Grid>
 </Window>

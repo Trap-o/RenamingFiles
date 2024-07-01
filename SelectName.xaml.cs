@@ -11,8 +11,6 @@ namespace RandomNamesWithUI
         public SelectName()
         {
             InitializeComponent();
-            MainWindow mainWindow = new();
-            mainWindow.Hide();
         }
 
         public string? NewName { get; set; }
@@ -28,21 +26,10 @@ namespace RandomNamesWithUI
 
         private void RenamingPart_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (RenamingPart.Text is "")
-                TestNameList.Content = "New file's names:";
             string testName = "";
-            Thread.Sleep(2000);
             for (int i = 0; i < 3; i++)
-            {
-                testName += '\n' + RenamingPart.Text + i;
-            }
-            TestNameList.Content = "New file's names:" + testName + "\n...";
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            MainWindow mainWindow = new();
-            mainWindow.Show();
+                testName += RenamingPart.Text + "_" + i + ", ";
+            TestNameList.Text = "New files' names:\n" + testName + "...";
         }
     }
 }

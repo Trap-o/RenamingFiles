@@ -81,8 +81,10 @@ namespace RandomNamesWithUI
         private void ManuallyButton_Click(object sender, RoutedEventArgs e)
         {
             SelectName selectName = new();
+            Hide();
             selectName.ShowDialog();
-
+            Show();
+            
             if (RenamingTarget.Text is "Select folder(s)")
             {
                 OpenDialog(out OpenFolderDialog dialog, out bool? result);
