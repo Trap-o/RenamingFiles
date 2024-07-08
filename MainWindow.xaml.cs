@@ -12,7 +12,7 @@ namespace RandomNamesWithUI
     {
         public MainWindow() => InitializeComponent();
 
-        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        private async void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
             if (RenamingTarget.Text is "Select folder(s)")
             {
@@ -28,7 +28,7 @@ namespace RandomNamesWithUI
                     }
                 }
             }
-            if (RenamingTarget.Text is "Select file(s)")
+            else if (RenamingTarget.Text is "Select file(s)")
             {
                 OpenDialog(out OpenFileDialog dialog, out bool? result);
 
@@ -45,30 +45,13 @@ namespace RandomNamesWithUI
                 }
             }
             else
-                testLabel.Content = "Оберіть ціль перейменування у списку!";
-        }
-
-        private static void OpenDialog(out OpenFileDialog dialog, out bool? result)
-        {
-            dialog = new()
             {
-                Multiselect = true,
-                Title = "Select file(s) to rename"
-            };
-            result = dialog.ShowDialog();
+                testLabel.Content = "Select what you want to rename from list!";
+                await ReturnToDefaultLabelText();
+            }
         }
 
-        private static void OpenDialog(out OpenFolderDialog dialog, out bool? result)
-        {
-            dialog = new()
-            {
-                Multiselect = true,
-                Title = "Select folder(s) to rename"
-            };
-            result = dialog.ShowDialog();
-        }
-
-        private void ManuallyButton_Click(object sender, RoutedEventArgs e)
+        private async void ManuallyButton_Click(object sender, RoutedEventArgs e)
         {
             SelectName selectName = new();
             Hide();
@@ -91,7 +74,7 @@ namespace RandomNamesWithUI
                     }
                 }
             }
-            if (RenamingTarget.Text is "Select file(s)")
+            else if (RenamingTarget.Text is "Select file(s)")
             {
                 OpenDialog(out OpenFileDialog dialog, out bool? result);
 
@@ -110,10 +93,34 @@ namespace RandomNamesWithUI
                 }
             }
             else
+            {
                 testLabel.Content = "Select what you want to rename from list!";
+                await ReturnToDefaultLabelText();
+            }
+
         }
 
-        private void ManuallyRename(FileInfo file, string finalName)
+        private static void OpenDialog(out OpenFileDialog dialog, out bool? result)
+        {
+            dialog = new()
+            {
+                Multiselect = true,
+                Title = "Select file(s) to rename"
+            };
+            result = dialog.ShowDialog();
+        }
+
+        private static void OpenDialog(out OpenFolderDialog dialog, out bool? result)
+        {
+            dialog = new()
+            {
+                Multiselect = true,
+                Title = "Select folder(s) to rename"
+            };
+            result = dialog.ShowDialog();
+        }
+
+        private async void ManuallyRename(FileInfo file, string finalName)
         {
             try
             {
@@ -123,11 +130,19 @@ namespace RandomNamesWithUI
                 {
                     File.Move(file.FullName, newPath);
                 }
+                testLabel.Content = "Renaming complete!";
+                await ReturnToDefaultLabelText();
             }
             catch (Exception ex)
             {
                 testLabel.Content = $"Failed to rename file(s) in folder: {ex.Message}";
             }
+        }
+
+        private async Task ReturnToDefaultLabelText()
+        {
+            await Task.Delay(5000);
+            testLabel.Content = "Choose action";
         }
     }
 }

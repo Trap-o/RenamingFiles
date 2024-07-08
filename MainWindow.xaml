@@ -6,23 +6,16 @@
         xmlns:local="clr-namespace:RandomNamesWithUI"
         mc:Ignorable="d"
         Title="Generate random names" Height="450" Width="800" WindowStyle="ThreeDBorderWindow" Icon="/_35e74fe2-4909-402b-964d-78f341577316.jfif" HorizontalAlignment="Center" ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" FontSize="20">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Button Grid.Row="0" Content="Generate name" Margin="315,220,315,174" Click="GenerateButton_Click" Width="170" Height="40"/>
-        <Label Name="testLabel" Content="Choose action" HorizontalAlignment="Center" Margin="0,169,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button  Content="Change name manually" Margin="315,273,315,121" Click="ManuallyButton_Click" Width="170" Height="40"/>
+    <Grid Background="#f6f7eb">
+        <Button Content="Generate name" Margin="315,220,315,174" Click="GenerateButton_Click" Width="170" Height="40" Background="#393e41" BorderBrush="#393e41" />
+        <Label Name="testLabel" Content="Choose action" HorizontalAlignment="Center" Margin="0,170,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button Margin="315,273,315,96" Click="ManuallyButton_Click" Width="170" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">Change name<LineBreak/>manually</TextBlock>
+        </Button>
 
-        <ComboBox x:Name="RenamingTarget" HorizontalAlignment="Center" Margin="0,325,0,0" VerticalAlignment="Top" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        <ComboBox x:Name="RenamingTarget" HorizontalAlignment="Center" Margin="0,351,0,0" VerticalAlignment="Top" Width="170" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <ComboBoxItem>Select folder(s)</ComboBoxItem>
             <ComboBoxItem>Select file(s)</ComboBoxItem>
         </ComboBox>
-        <!--<ComboBox x:Name="ManuallyRenamingMaterial" HorizontalAlignment="Left" Margin="445,330,0,0" VerticalAlignment="Top" Width="120" Height="47">
-            <ComboBoxItem>Select folder(s)</ComboBoxItem>
-            <ComboBoxItem>Select file(s)</ComboBoxItem>
-        </ComboBox>-->
     </Grid>
 </Window>
