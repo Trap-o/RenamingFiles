@@ -10,11 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="_35e74fe2-4909-402b-964d-78f341577316-removebg-preview.png" />
     <None Remove="_35e74fe2-4909-402b-964d-78f341577316.jfif" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="_35e74fe2-4909-402b-964d-78f341577316.jfif" />
+    <Resource Include="_35e74fe2-4909-402b-964d-78f341577316-removebg-preview.png" />
   </ItemGroup>
 
 </Project>
