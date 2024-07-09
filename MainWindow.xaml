@@ -7,7 +7,17 @@
         mc:Ignorable="d"
         Title="Generate random names" Height="450" Width="800" WindowStyle="ThreeDBorderWindow" Icon="/_35e74fe2-4909-402b-964d-78f341577316.jfif" HorizontalAlignment="Center" ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" FontSize="20">
     <Grid>
-        <Button Content="Generate name" Margin="315,220,315,174" Click="GenerateButton_Click" Width="170" Height="40"/>
+
+        <Rectangle>
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0, 0" EndPoint="0, 0">
+                    <GradientStop Color="#5C258D" Offset="0.5"/>
+                    <GradientStop Color="#4389A2" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+                    <Button Content="Generate name" Margin="315,220,315,174" Click="GenerateButton_Click" Width="170" Height="40"/>
         <Label Name="testLabel" Content="Choose action" HorizontalAlignment="Center" Margin="0,170,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Button Margin="315,273,315,96" Click="ManuallyButton_Click" Width="170" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">Change name<LineBreak/>manually</TextBlock>
