@@ -12,6 +12,6 @@
         <TextBlock x:Name="TestNameList" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,85,0,0" TextAlignment="Center" Foreground="SaddleBrown" Height="85" TextWrapping="WrapWithOverflow">
             New files' names:<LineBreak/> File_1, File_2, File_3, ...
         </TextBlock>
-        <Button x:Name="ContinueButton" Content="Continue?" HorizontalAlignment="Center" Margin="0,175,0,20" VerticalAlignment="Top" Width="100" Height="40" Click="ContinueButton_Click" Background="SaddleBrown" Foreground="BlanchedAlmond"/>
+        <Button x:Name="ContinueButton" Content="Continue" HorizontalAlignment="Center" Margin="0,175,0,20" VerticalAlignment="Top" Width="100" Height="40" Click="ContinueButton_Click" Background="SaddleBrown" Foreground="BlanchedAlmond"/>
     </Grid>
 </Window>

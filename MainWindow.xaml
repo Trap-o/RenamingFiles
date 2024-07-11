@@ -10,17 +10,24 @@
         <Label Name="testLabel" Content="Choose action" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top"
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="SaddleBrown" FontWeight="Bold"/>
         
-        <Button Content="Generate name" Margin="160,90,160,160" Click="GenerateButton_Click" Width="180" Height="40"
+        <Button Content="Generate name" Margin="155,95,155,164" Click="GenerateButton_Click" Width="190" Height="40"
                 Background="SaddleBrown" Foreground="BlanchedAlmond"/>
-        <Button Margin="160,155,160,79" Click="ManuallyButton_Click" Width="180" Height="65"
+        <Button Margin="155,150,155,79" Click="ManuallyButton_Click" Width="190" Height="70"
                 Background="SaddleBrown" Foreground="BlanchedAlmond">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">Change name<LineBreak/>manually</TextBlock>
         </Button>
 
-        <ComboBox x:Name="RenamingTarget" HorizontalAlignment="Center" Margin="0,240,0,0" VerticalAlignment="Top" Width="180"
+        <Button HorizontalAlignment="Right" Margin="0,5,5,0" Height="35" Width="35" VerticalAlignment="Top" Background="BlanchedAlmond"
+                BorderBrush="BlanchedAlmond" Padding="0,0,0,0" Click="InfoButton_Click">
+            <Image Source="/17522985921543238896-128.png"></Image>
+        </Button>
+
+        <ComboBox x:Name="RenamingTarget" HorizontalAlignment="Center" Margin="0,235,0,0" VerticalAlignment="Top" Width="190"
                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <ComboBoxItem>Select folder(s)</ComboBoxItem>
             <ComboBoxItem>Select file(s)</ComboBoxItem>
         </ComboBox>
+        
+
     </Grid>
 </Window>
