@@ -1,16 +1,8 @@
 ﻿using Microsoft.Win32;
-using System.Diagnostics.Metrics;
 using System.IO;
-using System.Runtime.Intrinsics.X86;
 using System.Windows;
-using static System.Net.WebRequestMethods;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Windows.Controls.Primitives;
-using System.Windows.Controls;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using Path = System.IO.Path;
 using File = System.IO.File;
+using Path = System.IO.Path;
 
 namespace RandomNamesWithUI
 {
@@ -161,7 +153,7 @@ namespace RandomNamesWithUI
                 "\"Select file(s)\" – select one or more files in specific directory and rename ONLY THE SELECTED file(s). " +
                 "If You don't do this, the message \"Select what you want to rename from list!\" displayes. " +
                 "\n\nAfter that, You choose the type of renaming: " +
-                "generate random name(s) for file(s) with certain letters and numbers or give them similar specific name(s), " + 
+                "generate random name(s) for file(s) with certain letters and numbers or give them similar specific name(s), " +
                 "that You enter yourself(like \"photo_0, photo_1...\", etc.). " +
                 "\nFor the first variant, You just need to click the \"Generate name\" button and then select folder(s) or file(s) to rename " +
                 "(depending on what you select in drop - down list)." +
