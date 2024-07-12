@@ -33,7 +33,7 @@ namespace RandomNamesWithUI
                     foreach (var file in d.GetFiles())
                     {
                         string finalName = Path.GetRandomFileName();
-                        ManuallyRename(file, finalName);
+                        Rename(file, finalName);
                     }
                 }
             }
@@ -48,7 +48,7 @@ namespace RandomNamesWithUI
                         FileInfo file = new(filePath);
                         {
                             string finalName = Path.GetRandomFileName();
-                            ManuallyRename(file, finalName);
+                            Rename(file, finalName);
                         }
                     }
                 }
@@ -62,13 +62,20 @@ namespace RandomNamesWithUI
 
         private async void ManuallyButton_Click(object sender, RoutedEventArgs e)
         {
-            SelectName selectName = new();
-            Hide();
-            selectName.ShowDialog();
-            Show();
+            SelectName EnterName()
+            {
+                SelectName selectName = new();
+                Hide();
+                selectName.ShowDialog();
+                if (selectName.RenamingPart.Text == "")
+                    selectName.NewName = "File";
+                Show();
+                return selectName;
+            }
 
             if (RenamingTarget.Text is "Select folder(s)")
             {
+                SelectName selectName = EnterName();
                 OpenDialog(out OpenFolderDialog dialog, out bool? result);
 
                 if (result == true)
@@ -78,13 +85,14 @@ namespace RandomNamesWithUI
                     foreach (var file in d.GetFiles())
                     {
                         string finalName = selectName.NewName + "_" + i;
-                        ManuallyRename(file, finalName);
+                        Rename(file, finalName);
                         i++;
                     }
                 }
             }
             else if (RenamingTarget.Text is "Select file(s)")
             {
+                SelectName selectName = EnterName();
                 OpenDialog(out OpenFileDialog dialog, out bool? result);
 
                 if (result == true)
@@ -95,9 +103,9 @@ namespace RandomNamesWithUI
                         FileInfo file = new(filePath);
                         {
                             string finalName = selectName.NewName + "_" + i;
-                            ManuallyRename(file, finalName);
+                            Rename(file, finalName);
                         }
-                        i++;
+                        i++; 
                     }
                 }
             }
@@ -106,7 +114,6 @@ namespace RandomNamesWithUI
                 testLabel.Content = "Select what you want to rename from list!";
                 await ReturnToDefaultLabelText();
             }
-
         }
 
         private static void OpenDialog(out OpenFileDialog dialog, out bool? result)
@@ -129,7 +136,7 @@ namespace RandomNamesWithUI
             result = dialog.ShowDialog();
         }
 
-        private async void ManuallyRename(FileInfo file, string finalName)
+        private async void Rename(FileInfo file, string finalName)
         {
             try
             {

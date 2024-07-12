@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RandomNamesWithUI
@@ -25,7 +26,22 @@ namespace RandomNamesWithUI
         {
             string testName = "";
             for (int i = 0; i < 3; i++)
-                testName += RenamingPart.Text + "_" + i + ", ";
+            {
+                if (RenamingPart.Text is not "")
+                    if(RenamingPart.Text.Length <= 15)
+                    {
+                        testName += RenamingPart.Text + "_" + i + ",\n";
+                    }
+                    else
+                    {
+                        MessageBox.Show("The name must contain less than 15 characters!", "Error!",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        RenamingPart.Text = "";
+                    }
+                    
+                else
+                    testName = "File_1,\nFile_2,\nFile_3, ";
+            }
             TestNameList.Text = "New files' names:\n" + testName + "...";
         }
     }
