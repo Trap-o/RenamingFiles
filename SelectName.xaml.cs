@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace RandomNamesWithUI
@@ -16,7 +15,9 @@ namespace RandomNamesWithUI
         private void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
             if (RenamingPart.Text is not "")
+            {
                 NewName = RenamingPart.Text;
+            }
             else
                 NewName = "File";
             Close();
@@ -28,17 +29,29 @@ namespace RandomNamesWithUI
             for (int i = 0; i < 3; i++)
             {
                 if (RenamingPart.Text is not "")
-                    if(RenamingPart.Text.Length <= 15)
+                    if (RenamingPart.Text.Contains('/') || RenamingPart.Text.Contains('\\')
+                    || RenamingPart.Text.Contains(':') || RenamingPart.Text.Contains('*')
+                    || RenamingPart.Text.Contains('?') || RenamingPart.Text.Contains('\"')
+                    || RenamingPart.Text.Contains('<') || RenamingPart.Text.Contains('>')
+                    || RenamingPart.Text.Contains('|'))
                     {
-                        testName += RenamingPart.Text + "_" + i + ",\n";
+                        MessageBox.Show("A filename cannot contain any of the following characters: \\ / : * ? \" < > |", "Error!",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                        RenamingPart.Text = RenamingPart.Text[..^1];
                     }
                     else
                     {
-                        MessageBox.Show("The name must contain less than 15 characters!", "Error!",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
-                        RenamingPart.Text = "";
+                        if (RenamingPart.Text.Length <= 15)
+                        {
+                            testName += RenamingPart.Text + "_" + i + ",\n";
+                        }
+                        else
+                        {
+                            MessageBox.Show("The name must contain less than 15 characters!", "Error!",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            RenamingPart.Text = RenamingPart.Text[..^1];
+                        }
                     }
-                    
                 else
                     testName = "File_1,\nFile_2,\nFile_3, ";
             }

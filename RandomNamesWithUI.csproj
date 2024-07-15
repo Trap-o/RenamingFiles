@@ -2,17 +2,23 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>35e74fe2-4909-402b-964d-78f341577316-removebg-preview.ico</ApplicationIcon>
+    <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="img\17522985921543238896-128.png" />
     <None Remove="_35e74fe2-4909-402b-964d-78f341577316-removebg-preview.png" />
     <None Remove="_35e74fe2-4909-402b-964d-78f341577316.jfif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="35e74fe2-4909-402b-964d-78f341577316-removebg-preview.ico" />
   </ItemGroup>
 
   <ItemGroup>
