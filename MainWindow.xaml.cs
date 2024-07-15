@@ -136,7 +136,7 @@ namespace RandomNamesWithUI
                             string finalName = selectName.NewName + "_" + i;
                             Rename(file, finalName);
                         }
-                        i++; 
+                        i++;
                     }
                 }
             }
