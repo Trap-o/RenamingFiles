@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>35e74fe2-4909-402b-964d-78f341577316-removebg-preview.ico</ApplicationIcon>
+    <ApplicationIcon>img\35e74fe2-4909-402b-964d-78f341577316-removebg-preview.ico</ApplicationIcon>
     <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="35e74fe2-4909-402b-964d-78f341577316-removebg-preview.ico" />
+    <Content Include="img\35e74fe2-4909-402b-964d-78f341577316-removebg-preview.ico" />
   </ItemGroup>
 
   <ItemGroup>
