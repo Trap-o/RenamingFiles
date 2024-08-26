@@ -13,22 +13,19 @@ namespace RandomNamesWithUI
     {
         public MainWindow() => InitializeComponent();
 
-        private static void OpenDialog(out OpenFileDialog dialog, out bool? result)
+        private static void OpenSpecificDialog<Tdialog>(out Tdialog dialog, out bool? result) where Tdialog : CommonDialog, new()
         {
-            dialog = new()
-            {
-                Multiselect = true,
-                Title = "Select file(s) to rename"
-            };
-            result = dialog.ShowDialog();
-        }
+            dialog = new Tdialog();
 
-        private static void OpenDialog(out OpenFolderDialog dialog, out bool? result)
-        {
-            dialog = new()
+            if (dialog is OpenFileDialog fileDialog)
             {
-                Multiselect = true,
-                Title = "Select folder(s) to rename"
+                fileDialog.Multiselect = true;
+                fileDialog.Title = "Select file(s) to rename";
+            }
+            if (dialog is OpenFolderDialog folderDialog)
+            {
+                folderDialog.Multiselect = true;
+                folderDialog.Title = "Select file(s) to rename";
             };
             result = dialog.ShowDialog();
         }
@@ -56,7 +53,7 @@ namespace RandomNamesWithUI
         {
             if (RenamingTarget.Text is "Select folder(s)")
             {
-                OpenDialog(out OpenFolderDialog dialog, out bool? result);
+                OpenSpecificDialog(out OpenFolderDialog dialog, out bool? result);
 
                 if (result == true)
                 {
@@ -70,17 +67,15 @@ namespace RandomNamesWithUI
             }
             else if (RenamingTarget.Text is "Select file(s)")
             {
-                OpenDialog(out OpenFileDialog dialog, out bool? result);
+                OpenSpecificDialog(out OpenFileDialog dialog, out bool? result);
 
                 if (result == true)
                 {
                     foreach (string filePath in dialog.FileNames)
                     {
                         FileInfo file = new(filePath);
-                        {
-                            string finalName = Path.GetRandomFileName();
-                            Rename(file, finalName);
-                        }
+                        string finalName = Path.GetRandomFileName();
+                        Rename(file, finalName);
                     }
                 }
             }
@@ -107,7 +102,7 @@ namespace RandomNamesWithUI
             if (RenamingTarget.Text is "Select folder(s)")
             {
                 SelectName selectName = EnterName();
-                OpenDialog(out OpenFolderDialog dialog, out bool? result);
+                OpenSpecificDialog(out OpenFolderDialog dialog, out bool? result);
 
                 if (result == true)
                 {
@@ -124,7 +119,7 @@ namespace RandomNamesWithUI
             else if (RenamingTarget.Text is "Select file(s)")
             {
                 SelectName selectName = EnterName();
-                OpenDialog(out OpenFileDialog dialog, out bool? result);
+                OpenSpecificDialog(out OpenFileDialog dialog, out bool? result);
 
                 if (result == true)
                 {
