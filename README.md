@@ -31,6 +31,6 @@ random:
 manually:
 ![Знімок екрана 2024-07-15 2243192](https://github.com/user-attachments/assets/67802a85-3006-4f3a-ad54-92e54c87eeb8)
 
-### Download app (setup file, You may need to disable Windows Defender) –> https://urlis.net/RenamingFiles
+### Download app (setup file, You may need to disable Windows Defender) –> Releases/Ver 1.0
 
 ## The app was developed by Trap_o out of personal need (and as a small portfolio project). Please, write any suggestions (new features, app design, bugs, code improvements, etc.) in "Discussions" section (English or Ukrainian).
