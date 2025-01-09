@@ -1,13 +1,14 @@
-﻿<Window x:Class="RandomNamesWithUI.SelectName"
+﻿<Window x:Class="RandomNamesWithUI.lib.View.SelectName"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RandomNamesWithUI"
+        xmlns:local="clr-namespace:RandomNamesWithUI.lib.View"
         mc:Ignorable="d"
         
         Title="New name"
-        Height="300" Width="270"
+        Height="300"
+        Width="270"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         FontSize="20"
@@ -16,14 +17,14 @@
 
     <Grid Background="BlanchedAlmond">
         <TextBox
-            x:Name="RenamingPart"
+            x:Name="NewFileName"
             HorizontalAlignment="Center"
             TextWrapping="Wrap"
             Text=""
             VerticalAlignment="Top"
             Margin="0,50,0,0"
-            TextChanged="RenamingPart_TextChanged"
             Width="175"
+            TextChanged="RenamingPart_TextChanged"
             />
         <Label
             Content="Enter new name for files:"
@@ -41,7 +42,8 @@
             TextAlignment="Center"
             Foreground="SaddleBrown"
             Height="110"
-            TextWrapping="WrapWithOverflow" Margin="0,90,0,0">
+            TextWrapping="WrapWithOverflow"
+            Margin="0,90,0,0">
             New files' names:<LineBreak/>File_1,<LineBreak/>File_2,<LineBreak/>File_3, ...
         </TextBlock>
         <Button
@@ -50,9 +52,11 @@
             HorizontalAlignment="Center"
             Margin="0,210,0,20"
             VerticalAlignment="Top"
-            Width="100" Height="40"
-            Click="ContinueButton_Click"
+            Width="100"
+            Height="40"
             Background="SaddleBrown"
-            Foreground="BlanchedAlmond"/>
+            Foreground="BlanchedAlmond"
+            Click="ContinueButton_Click"
+            />
     </Grid>
 </Window>

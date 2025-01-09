@@ -1,13 +1,14 @@
-﻿<Window x:Class="RandomNamesWithUI.MainWindow"
+﻿<Window x:Class="RandomNamesWithUI.lib.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RandomNamesWithUI"
+        xmlns:local="clr-namespace:RandomNamesWithUI.lib.View"
         mc:Ignorable="d"
         
         Title="Generate random names"
-        Height="315" Width="500"
+        Height="315"
+        Width="500"
         WindowStyle="ThreeDBorderWindow"
         Icon="/img/_35e74fe2-4909-402b-964d-78f341577316-removebg-preview.png"
         HorizontalAlignment="Center"
@@ -18,7 +19,7 @@
     
     <Grid Background="BlanchedAlmond">
         <Label
-            Name="testLabel"
+            Name="actionLabel"
             Content="Choose action"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
@@ -28,16 +29,16 @@
             Foreground="SaddleBrown"
             FontWeight="Bold"
             />
-        
+
         <Button
             Content="Generate name"
             Margin="155,95,155,164"
-            Width="190" Height="40"
+            Width="190"
+            Height="40"
             Background="SaddleBrown"
             Foreground="BlanchedAlmond"
             Click="GenerateButton_Click"
             />
-
         <Button
             Margin="155,150,155,79"
             Width="190"
@@ -57,19 +58,20 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Margin="0,0,10,10"
-            Height="40" Width="40"
+            Height="40"
+            Width="40"
             Background="BlanchedAlmond"
             BorderBrush="BlanchedAlmond"
             Click="InfoButton_Click">
             <Image
                 Name="InfoImage"
                 Source="/img/17522985921543238896-128.png"
-                Height="39" Width="39"
+                Height="39"
+                Width="39"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                />
+             />
         </Button>
-
         <ComboBox
             x:Name="RenamingTarget"
             HorizontalAlignment="Center"
