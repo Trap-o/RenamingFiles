@@ -3,10 +3,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RandomNamesWithUI.lib.View"
+        xmlns:local="clr-namespace:RandomNamesWithUI.lib.ViewModel"
         mc:Ignorable="d"
         
-        Title="Generate random names"
+        Title="Generate names"
         Height="315"
         Width="500"
         WindowStyle="ThreeDBorderWindow"
@@ -16,11 +16,14 @@
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         FontSize="24">
-    
+
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+
     <Grid Background="BlanchedAlmond">
         <Label
-            Name="actionLabel"
-            Content="Choose action"
+            Content="{Binding ActionLabel}"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Margin="0,30,0,0"
@@ -37,7 +40,7 @@
             Height="40"
             Background="SaddleBrown"
             Foreground="BlanchedAlmond"
-            Click="GenerateButton_Click"
+            Command="{Binding GenerativelyNameCommand}"
             />
         <Button
             Margin="155,150,155,79"
@@ -45,7 +48,7 @@
             Height="70"
             Background="SaddleBrown"
             Foreground="BlanchedAlmond"
-            Click="ManuallyButton_Click">
+            Command="{Binding ManuallyNameCommand}">
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -62,7 +65,7 @@
             Width="40"
             Background="BlanchedAlmond"
             BorderBrush="BlanchedAlmond"
-            Click="InfoButton_Click">
+            Command="{Binding OpenInfoCommand}">
             <Image
                 Name="InfoImage"
                 Source="/img/17522985921543238896-128.png"
@@ -74,14 +77,17 @@
         </Button>
         <ComboBox
             x:Name="RenamingTarget"
+            SelectedItem="{Binding SelectedOption, Mode=TwoWay}"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Margin="0,235,0,0"
             Width="190"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center">
-            <ComboBoxItem>Select folder(s)</ComboBoxItem>
-            <ComboBoxItem>Select file(s)</ComboBoxItem>
+            <ComboBox.Items>
+                <sys:String xmlns:sys="clr-namespace:System;assembly=mscorlib">Select folder(s)</sys:String>
+                <sys:String xmlns:sys="clr-namespace:System;assembly=mscorlib">Select file(s)</sys:String>
+            </ComboBox.Items>
         </ComboBox>
     </Grid>
 </Window>

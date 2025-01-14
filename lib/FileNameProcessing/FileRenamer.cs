@@ -10,7 +10,7 @@ namespace RandomNamesWithUI.lib.FileNameProcessing
 {
     internal class FileRenamer : IRename
     {
-        public void Rename(System.Windows.Controls.Label actionLabel, FileInfo file, string finalName)
+        public void Rename(string actionLabelText, FileInfo file, string finalName)
         {
             try
             {
@@ -20,11 +20,10 @@ namespace RandomNamesWithUI.lib.FileNameProcessing
                 {
                     File.Move(file.FullName, newPath);
                 }
-                actionLabel.Content = "Renaming complete!";
             }
             catch (Exception ex)
             {
-                actionLabel.Content = $"Failed to rename file(s) in folder: {ex.Message}";
+                 Console.WriteLine($"Failed to rename file(s) in folder: {ex.Message}");
             }
         }
     }
