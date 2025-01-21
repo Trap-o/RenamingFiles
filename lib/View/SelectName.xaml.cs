@@ -1,6 +1,4 @@
 ﻿using RandomNamesWithUI.lib.FileNameProcessing;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -30,7 +28,7 @@ namespace RandomNamesWithUI.lib.View
         private void RenamingPart_TextChanged(object sender, TextChangedEventArgs e)
         {
             string showedTestName = filenameValidator.ValidateName(NewFileName);
-            TestNameList.Text = "New files' names:\n" + showedTestName + "...";
+            //TestNameList.Text = "New files' names:\n" + showedTestName + "...";
         }
     }
 }

@@ -1,10 +1,5 @@
 ﻿using Microsoft.Win32;
 using RandomNamesWithUI.lib.interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RandomNamesWithUI.lib.models.Dialogs
 {
@@ -29,7 +24,5 @@ namespace RandomNamesWithUI.lib.models.Dialogs
         {
             return _openFileDialog.ShowDialog();
         }
-
-
     }
 }

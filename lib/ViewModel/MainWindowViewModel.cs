@@ -1,30 +1,24 @@
-﻿using Microsoft.Win32;
-using RandomNamesWithUI.lib.Constants;
+﻿using RandomNamesWithUI.lib.Constants;
 using RandomNamesWithUI.lib.FileNameProcessing;
 using RandomNamesWithUI.lib.interfaces;
 using RandomNamesWithUI.lib.models.Dialogs;
 using RandomNamesWithUI.lib.View;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace RandomNamesWithUI.lib.ViewModel
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
-        readonly FileRenamer fileRenamer = new();
+        #region Variables
         public ICommand GenerativelyNameCommand { get; }
         public ICommand ManuallyNameCommand { get; }
         public ICommand OpenInfoCommand { get; }
+        readonly FileRenamer fileRenamer = new();
 
-        private string _actionLabel;
+        private string _actionLabel = string.Empty;
         public string ActionLabel
         {
             get => _actionLabel;
@@ -32,9 +26,10 @@ namespace RandomNamesWithUI.lib.ViewModel
             {
                 _actionLabel = value;
                 OnPropertyChanged(nameof(ActionLabel));
+                CommandManager.InvalidateRequerySuggested();
             }
         }
-        private string _selectedOption;
+        private string _selectedOption = string.Empty;
         public string SelectedOption
         {
             get => _selectedOption;
@@ -42,129 +37,147 @@ namespace RandomNamesWithUI.lib.ViewModel
             {
                 _selectedOption = value;
                 OnPropertyChanged(nameof(SelectedOption));
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
+        private SelectName? selectName;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region Constructor
         public MainWindowViewModel()
         {
             ActionLabel = "Choose action";
 
-            GenerativelyNameCommand = new RelayCommand(async _ => await GenerativelyRenameHandler());
-            ManuallyNameCommand = new RelayCommand(async _ => await ManualRenameHandler());
+            GenerativelyNameCommand = new RelayCommand(async _ => await GenerativelyRenameHandlerAsync());
+            ManuallyNameCommand = new RelayCommand(async _ => await ManualRenameHandlerAsync());
             OpenInfoCommand = new RelayCommand(_ => ShowAppInfo());
+            CommandManager.InvalidateRequerySuggested();
         }
+        #endregion
 
-        async Task GenerativelyRenameHandler()
-        {
-            if (string.IsNullOrEmpty(SelectedOption))
-            {
-                ActionLabel = "Please select an option from the list!";
-                return;
-            }
-            //var selectedOption = RenamingTarget.Text;
-            switch (SelectedOption)
-            {
-                case "Select folder(s)":
-                    OpenSpecificDialog<FolderDialogAdapter>(out var dialogFolder, out bool? resultFolder);
-                    if (resultFolder == true)
-                    {
-                        DirectoryInfo d = new(dialogFolder.FolderName);
-                        foreach (var file in d.GetFiles())
-                        {
-                            string finalName = Path.GetRandomFileName();
-                            fileRenamer.Rename(ActionLabel, file, finalName);
-                        }
-                        ActionLabel = "Renaming complete!";
-                    }
-                    break;
-                case "Select file(s)":
-                    OpenSpecificDialog<FileDialogAdapter>(out var dialogFile, out bool? resultFile);
-                    if (resultFile == true)
-                    {
-                        foreach (string filePath in dialogFile.FileNames)
-                        {
-                            FileInfo file = new(filePath);
-                            string finalName = Path.GetRandomFileName();
-                            fileRenamer.Rename(ActionLabel, file, finalName);
-                        }
-                        ActionLabel = "Renaming complete!";
-                    }
-                    break;
-                default:
-                    ActionLabel = "Select what you want to rename from list!";
-                    break;
-            }
+        #region Commands
+        private async Task GenerativelyRenameHandlerAsync() => await RenameHandlerAsync(true);
 
-            await Task.Delay(5000);
-            ActionLabel = "Choose action";
-        }
+        private async Task ManualRenameHandlerAsync() => await RenameHandlerAsync(false);
 
-        async Task ManualRenameHandler()
-        {
-            if (string.IsNullOrEmpty(SelectedOption))
-            {
-                ActionLabel = "Please select an option from the list!";
-                return;
-            }
-            SelectName EnterName()
-            {
-                SelectName selectName = new();
-                selectName.ShowDialog();
-                return selectName;
-            }
-
-            //var selectedOption = RenamingTarget.Text;
-            SelectName selectName = EnterName();
-
-            switch (SelectedOption)
-            {
-                case "Select folder(s)":
-                    OpenSpecificDialog<FolderDialogAdapter>(out var dialogFolder, out bool? resultFolder);
-                    if (resultFolder == true)
-                    {
-                        DirectoryInfo d = new(dialogFolder.FolderName);
-                        int i = 0;
-                        foreach (var file in d.GetFiles())
-                        {
-                            string finalName = selectName.NewName + "_" + i;
-                            fileRenamer.Rename(ActionLabel, file, finalName);
-                            i++;
-                        }
-                        ActionLabel = "Renaming complete!";
-                    }
-                    break;
-                case "Select file(s)":
-                    OpenSpecificDialog<FileDialogAdapter>(out var dialogFile, out bool? resultFile);
-                    if (resultFile == true)
-                    {
-                        int i = 0;
-                        foreach (var filePath in dialogFile.FileNames)
-                        {
-                            FileInfo file = new(filePath);
-                            {
-                                string finalName = selectName.NewName + "_" + i;
-                                fileRenamer.Rename(ActionLabel, file, finalName);
-                            }
-                            i++;
-                        }
-                        ActionLabel = "Renaming complete!";
-                    }
-                    break;
-                default:
-                    ActionLabel = "Select what you want to rename from list!";
-                    break;
-            }
-
-            await Task.Delay(5000);
-            ActionLabel = "Choose action";
-        }
-
-        static void ShowAppInfo()
+        private static Task ShowAppInfo()
         {
             MessageBox.Show(Instruction.messageBoxText,
                 Instruction.caption,
                 MessageBoxButton.OK,
                 MessageBoxImage.Asterisk);
+            return Task.CompletedTask;
+        }
+        #endregion
+
+        #region CommandsMethods
+        private async Task RenameHandlerAsync(bool isAutoRename)
+        {
+            try
+            {
+                ValidateSelectedOption();
+
+                switch (SelectedOption)
+                {
+                    case "Select folder(s)":
+                        HandleRenameProcess<FolderDialogAdapter>(isAutoRename);
+                        break;
+                    case "Select file(s)":
+                        HandleRenameProcess<FileDialogAdapter>(isAutoRename);
+                        break;
+                }
+                await ResetActionLabel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void HandleRenameProcess<T>(bool isGenerativelyRename) where T : IConfigurableDialog, new()
+        {
+            selectName = isGenerativelyRename ? null : OpenSelectNameWindow();
+
+            OpenSpecificDialog<T>(out var dialog, out bool? result);  
+
+            if (typeof(T) == typeof(FileDialogAdapter))
+                HandleFileRename(dialog as FileDialogAdapter, result, isGenerativelyRename, selectName?.NewName);
+            else
+                HandleFolderFilesRename(dialog as FolderDialogAdapter, result, isGenerativelyRename, selectName?.NewName);
+        }
+
+        private void HandleFileRename(FileDialogAdapter? dialogFile, bool? resultFile, bool isGenerativelyRename, string? newName)
+        {
+            if (resultFile == true && dialogFile != null)
+            {
+                int i = 0;
+                string finalName;
+
+                foreach (var filePath in dialogFile.FileNames)
+                {
+                    FileInfo file = new(filePath);
+                    finalName = CreateFinalName(isGenerativelyRename, newName, i);
+                    fileRenamer.Rename(ActionLabel, file, finalName);
+                    i++;
+                }
+                ActionLabel = "Renaming complete!";
+            }
+        }
+
+        private void HandleFolderFilesRename(FolderDialogAdapter? dialogFolder, bool? resultFolder, bool isGenerativelyRename, string? newName)
+        {
+            if (resultFolder == true && dialogFolder != null)
+            {
+                DirectoryInfo d = new(dialogFolder.FolderName);
+                int i = 0;
+                string finalName;
+
+                foreach (var file in d.GetFiles())
+                {
+                    finalName = CreateFinalName(isGenerativelyRename, newName, i);
+                    fileRenamer.Rename(ActionLabel, file, finalName);
+                    i++;
+                }
+                ActionLabel = "Renaming complete!";
+            }
+        }
+
+        private static string CreateFinalName(bool isGenerativelyRename, string? newName, int i)
+        {
+            string finalName;
+            if (isGenerativelyRename)
+                finalName = Path.GetRandomFileName();
+            else
+                finalName = $"{newName}_{i}";
+
+            return finalName;
+        }
+
+        private async Task ResetActionLabel()
+        {
+            await Task.Delay(5000);
+            ActionLabel = "Choose action";
+        }
+
+        private void ValidateSelectedOption()
+        {
+            if (string.IsNullOrEmpty(SelectedOption))
+                ActionLabel = "Please select an option from the list!";
+        }
+
+        private static SelectName OpenSelectNameWindow()
+        {
+            SelectName selectName = new();
+            selectName.ShowDialog();
+            return selectName;
         }
 
         public static void OpenSpecificDialog<Tdialog>(out Tdialog dialog, out bool? result) where Tdialog : IConfigurableDialog, new()
@@ -177,12 +190,6 @@ namespace RandomNamesWithUI.lib.ViewModel
 
             result = dialog.ShowDialog();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        #endregion
     }
 }

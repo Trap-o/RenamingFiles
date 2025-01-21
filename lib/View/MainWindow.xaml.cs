@@ -1,10 +1,4 @@
-﻿using RandomNamesWithUI.lib.Constants;
-using RandomNamesWithUI.lib.FileNameProcessing;
-using RandomNamesWithUI.lib.models.Dialogs;
-using RandomNamesWithUI.lib.ViewModel;
-using System.IO;
-using System.Windows;
-using Path = System.IO.Path;
+﻿using System.Windows;
 
 namespace RandomNamesWithUI.lib.View
 {

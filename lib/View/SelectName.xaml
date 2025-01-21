@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RandomNamesWithUI.lib.View"
+        xmlns:local="clr-namespace:RandomNamesWithUI.lib.ViewModel"
         mc:Ignorable="d"
         
         Title="New name"
@@ -14,6 +14,10 @@
         FontSize="20"
         Icon="/img/_35e74fe2-4909-402b-964d-78f341577316-removebg-preview.png"
         SizeToContent="WidthAndHeight">
+
+    <Window.DataContext>
+        <local:SelectNameViewModel/>
+    </Window.DataContext>
 
     <Grid Background="BlanchedAlmond">
         <TextBox
@@ -36,7 +40,7 @@
             FontWeight="Bold"
             />
         <TextBlock
-            x:Name="TestNameList"
+            Text="{Binding TestNameList}"
             VerticalAlignment="Top"
             HorizontalAlignment="Center"
             TextAlignment="Center"
@@ -44,7 +48,6 @@
             Height="110"
             TextWrapping="WrapWithOverflow"
             Margin="0,90,0,0">
-            New files' names:<LineBreak/>File_1,<LineBreak/>File_2,<LineBreak/>File_3, ...
         </TextBlock>
         <Button
             x:Name="ContinueButton"
