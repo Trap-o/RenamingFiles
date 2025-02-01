@@ -1,6 +1,6 @@
 ﻿namespace RandomNamesWithUI.lib.Constants
 {
-    public static class Instruction
+    public static class InstructionText
     {
         public const string caption = "Info";
         public const string messageBoxText = "First, You need to select the object to rename form drop - down list: " +
@@ -15,7 +15,7 @@
             "\nFor the second variant, firstly, You need to click the \"Change name manually\" button, " +
             "secondly, enter a new name for file(s) and click the \"Continue\" button, thirdly, select folder(s) or file(s) to rename " +
             "(depending on what you select in drop - down list). Finally, You can see results of files\' renaming." +
-            "\n\nThe app was developed by Trap_o out of personal need (and as a small portfolio project). " +
+            "\n\nThe app was developed by Trap_o" +
             "Please, write any suggestions (new features, app design, bugs, code improvements, etc.) in \"Discussions\" section (English or Ukrainian).";
     }
 }

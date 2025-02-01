@@ -16,6 +16,7 @@ namespace RandomNamesWithUI.lib.ViewModel
         public ICommand GenerativelyNameCommand { get; }
         public ICommand ManuallyNameCommand { get; }
         public ICommand OpenInfoCommand { get; }
+
         readonly FileRenamer fileRenamer = new();
 
         private string _actionLabel = string.Empty;
@@ -41,7 +42,7 @@ namespace RandomNamesWithUI.lib.ViewModel
             }
         }
 
-        private SelectName? selectName;
+        private SelectNameViewModel? selectName;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -70,8 +71,8 @@ namespace RandomNamesWithUI.lib.ViewModel
 
         private static Task ShowAppInfo()
         {
-            MessageBox.Show(Instruction.messageBoxText,
-                Instruction.caption,
+            MessageBox.Show(InstructionText.messageBoxText,
+                InstructionText.caption,
                 MessageBoxButton.OK,
                 MessageBoxImage.Asterisk);
             return Task.CompletedTask;
@@ -104,14 +105,21 @@ namespace RandomNamesWithUI.lib.ViewModel
 
         private void HandleRenameProcess<T>(bool isGenerativelyRename) where T : IConfigurableDialog, new()
         {
-            selectName = isGenerativelyRename ? null : OpenSelectNameWindow();
+            selectName = isGenerativelyRename ? null : OpenSelectNameWindowViewModel();
 
-            OpenSpecificDialog<T>(out var dialog, out bool? result);  
+            OpenSpecificDialog<T>(out var dialog, out bool? result);
 
             if (typeof(T) == typeof(FileDialogAdapter))
                 HandleFileRename(dialog as FileDialogAdapter, result, isGenerativelyRename, selectName?.NewName);
             else
                 HandleFolderFilesRename(dialog as FolderDialogAdapter, result, isGenerativelyRename, selectName?.NewName);
+        }
+
+        private static SelectNameViewModel? OpenSelectNameWindowViewModel()
+        {
+            SelectName selectName = new();
+            selectName.ShowDialog();
+            return selectName.DataContext as SelectNameViewModel;
         }
 
         private void HandleFileRename(FileDialogAdapter? dialogFile, bool? resultFile, bool isGenerativelyRename, string? newName)
@@ -171,13 +179,6 @@ namespace RandomNamesWithUI.lib.ViewModel
         {
             if (string.IsNullOrEmpty(SelectedOption))
                 ActionLabel = "Please select an option from the list!";
-        }
-
-        private static SelectName OpenSelectNameWindow()
-        {
-            SelectName selectName = new();
-            selectName.ShowDialog();
-            return selectName;
         }
 
         public static void OpenSpecificDialog<Tdialog>(out Tdialog dialog, out bool? result) where Tdialog : IConfigurableDialog, new()

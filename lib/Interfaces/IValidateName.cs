@@ -4,6 +4,6 @@ namespace RandomNamesWithUI.lib.interfaces
 {
     internal interface IValidateName
     {
-        protected string ValidateName(TextBox newName);
+        protected static abstract string ValidateName(string newName);
     }
 }

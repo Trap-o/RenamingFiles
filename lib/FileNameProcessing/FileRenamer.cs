@@ -7,19 +7,10 @@ namespace RandomNamesWithUI.lib.FileNameProcessing
     {
         public void Rename(string actionLabelText, FileInfo file, string finalName)
         {
-            try
-            {
-                finalName = Path.ChangeExtension(finalName, null);
-                string newPath = Path.Combine(file.DirectoryName!, finalName + file.Extension);
-                if (!File.Exists(newPath))
-                {
-                    File.Move(file.FullName, newPath);
-                }
-            }
-            catch (Exception ex)
-            {
-                 Console.WriteLine($"Failed to rename file(s) in folder: {ex.Message}");
-            }
+            finalName = Path.ChangeExtension(finalName, null);
+            string newPath = Path.Combine(file.DirectoryName!, finalName + file.Extension);
+            if (!File.Exists(newPath))
+                File.Move(file.FullName, newPath);
         }
     }
 }
