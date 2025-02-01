@@ -9,12 +9,12 @@
         Title="Generate names"
         Height="315"
         Width="500"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
         WindowStyle="ThreeDBorderWindow"
         Icon="/img/_35e74fe2-4909-402b-964d-78f341577316-removebg-preview.png"
         HorizontalAlignment="Center"
-        ResizeMode="CanMinimize"
         SizeToContent="WidthAndHeight"
-        WindowStartupLocation="CenterScreen"
         FontSize="24">
 
     <Window.DataContext>
@@ -24,34 +24,37 @@
     <Grid Background="BlanchedAlmond">
         <Label
             Content="{Binding ActionLabel}"
-            HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0,30,0,0"
+            HorizontalAlignment="Center"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Foreground="SaddleBrown"
             FontWeight="Bold"
+            Foreground="SaddleBrown"
+            Margin="0,30,0,0"
             />
 
         <Button
             Content="Generate name"
-            Margin="155,95,155,164"
+            Focusable="False"
+            Background="SaddleBrown"
+            Foreground="BlanchedAlmond"
             Width="190"
             Height="40"
-            Background="SaddleBrown"
-            Foreground="BlanchedAlmond"
+            Margin="155,95,155,164"
             Command="{Binding GenerativelyNameCommand}"
             />
+        
         <Button
-            Margin="155,150,155,79"
-            Width="190"
-            Height="70"
+            Focusable="False"
             Background="SaddleBrown"
             Foreground="BlanchedAlmond"
+            Width="190"
+            Height="70"
+            Margin="155,150,155,79"
             Command="{Binding ManuallyNameCommand}">
             <TextBlock
-                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                HorizontalAlignment="Center" 
                 TextAlignment="Center">
                 Change name<LineBreak/>manually
             </TextBlock>
@@ -60,33 +63,40 @@
         <Button
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Margin="0,0,10,10"
-            Height="40"
-            Width="40"
             Background="BlanchedAlmond"
             BorderBrush="BlanchedAlmond"
+            Width="40"
+            Height="40"
+            Margin="0,0,10,10"
             Command="{Binding OpenInfoCommand}">
             <Image
                 Name="InfoImage"
                 Source="/img/17522985921543238896-128.png"
-                Height="39"
-                Width="39"
-                VerticalAlignment="Center"
                 HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="40"
+                Height="40"
              />
         </Button>
+        
         <ComboBox
             x:Name="RenamingTarget"
             SelectedItem="{Binding SelectedOption, Mode=TwoWay}"
-            HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0,235,0,0"
-            Width="190"
+            HorizontalAlignment="Center"
             HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center">
+            VerticalContentAlignment="Center"
+            Width="190"
+            Margin="0,235,0,0">
             <ComboBox.Items>
-                <sys:String xmlns:sys="clr-namespace:System;assembly=mscorlib">Select folder(s)</sys:String>
-                <sys:String xmlns:sys="clr-namespace:System;assembly=mscorlib">Select file(s)</sys:String>
+                <sys:String
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    Select folder(s)
+                </sys:String>
+                <sys:String
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    Select file(s)
+                </sys:String>
             </ComboBox.Items>
         </ComboBox>
     </Grid>

@@ -1,30 +1,28 @@
 ﻿using RandomNamesWithUI.lib.FileNameProcessing;
-using System;
-using System.Collections.Generic;
+using RandomNamesWithUI.lib.View;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace RandomNamesWithUI.lib.ViewModel
 {
     public class SelectNameViewModel : INotifyPropertyChanged
     {
+        #region Variables
         public ICommand SetNewFileNameAndCloseCommand { get; }
 
-        readonly FilenameValidator filenameValidator = new();
-
-        private string _newFileName = string.Empty;
-        public string NewFileName
+        private string _newFileNameTextBox = string.Empty;
+        public string NewFileNameTextBox
         {
-            get => _newFileName;
+            get => _newFileNameTextBox;
             set
             {
-                _newFileName = value;
-                OnPropertyChanged(nameof(NewFileName));
+                _newFileNameTextBox = value;
+                UpdateFileNameTextBox();
+                OnPropertyChanged(nameof(TestNameList));
+                CommandManager.InvalidateRequerySuggested();
             }
         }
+
         private string _newName = string.Empty;
         public string NewName
         {
@@ -33,6 +31,7 @@ namespace RandomNamesWithUI.lib.ViewModel
             {
                 _newName = value;
                 OnPropertyChanged(nameof(NewName));
+                CommandManager.InvalidateRequerySuggested();
             }
         }
         private string _testNameList = string.Empty;
@@ -43,29 +42,8 @@ namespace RandomNamesWithUI.lib.ViewModel
             {
                 _testNameList = value;
                 OnPropertyChanged(nameof(TestNameList));
+                CommandManager.InvalidateRequerySuggested();
             }
-        }
-
-        public SelectNameViewModel()
-        {
-            TestNameList = $"New files' names:{Environment.NewLine}File_1," +
-                $"{Environment.NewLine}File_2,{Environment.NewLine}File_3, ...";
-
-            SetNewFileNameAndCloseCommand = new RelayCommand(_ => SetNewFileNameAndCloseWindow());
-
-        }
-
-        Task SetNewFileNameAndCloseWindow()
-        {
-            if (string.IsNullOrWhiteSpace(NewFileName))
-            {
-                NewName = NewFileName;
-            }
-            else
-                NewName = "File";
-
-            return Task.CompletedTask;
-            //Close();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -74,5 +52,51 @@ namespace RandomNamesWithUI.lib.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
+
+        #region Constructor
+        public SelectNameViewModel()
+        {
+            TestNameList = $"New files' names:{Environment.NewLine}File_0," +
+                $"{Environment.NewLine}File_1,{Environment.NewLine}File_2, ...";
+
+            SetNewFileNameAndCloseCommand = new RelayCommand(SetNewFileName);
+            CommandManager.InvalidateRequerySuggested();
+        }
+        #endregion
+
+        #region Commands
+        Task SetNewFileName(object? window)
+        {
+            if (!string.IsNullOrWhiteSpace(NewFileNameTextBox))
+                NewName = NewFileNameTextBox;
+            else
+                NewName = "File";
+
+            if(window is SelectName selectName)
+                selectName.Close();
+            return Task.CompletedTask;
+        }
+        #endregion
+
+        #region CommandsMethods
+        public void OnWindowClosing(object? sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(NewName))
+                NewName = "File";
+        }
+
+        private void UpdateFileNameTextBox()
+        {
+            var validatedName = FilenameValidator.ValidateName(_newFileNameTextBox);
+            _newFileNameTextBox = validatedName;
+            OnPropertyChanged(nameof(NewFileNameTextBox));
+            if (string.IsNullOrEmpty(_newFileNameTextBox))
+                validatedName = "File";
+
+            TestNameList = $"New files' names:{Environment.NewLine}" +
+                $"{FilenameValidator.GenerateListForTestFileNames(validatedName)}...";
+        }
+        #endregion
     }
 }

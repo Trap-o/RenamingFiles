@@ -49,9 +49,7 @@ namespace RandomNamesWithUI.lib.ViewModel
         private async Task ExecuteAsync(object? parameter)
         {
             if (_executeAsync != null)
-            {
                 await _executeAsync(parameter);
-            }
         }
     }
 }

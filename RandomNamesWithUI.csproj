@@ -9,6 +9,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>img\35e74fe2-4909-402b-964d-78f341577316-removebg-preview.ico</ApplicationIcon>
     <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
+	<PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,10 @@
 
   <ItemGroup>
     <Content Include="img\35e74fe2-4909-402b-964d-78f341577316-removebg-preview.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
   </ItemGroup>
 
   <ItemGroup>
